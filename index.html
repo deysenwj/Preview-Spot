@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Kampung Warna Warni Jodipan - Photo Spots</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <title>Kampung Warna Warni Jodipan - Photo Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Roboto:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     * {
       margin: 0;
@@ -19,7 +19,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      font-family: "Roboto", sans-serif;
+      font-family: "Inter", sans-serif;
     }
     
     body {
@@ -49,285 +49,609 @@
       position: relative;
     }
     
+    /* Header dengan Glass Effect */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      padding: 0.75rem 1rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    header.scrolled {
+      padding: 0.5rem 1rem;
+    }
+    
     .glass-effect {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      color: #3d2b1f;
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      max-width: 100%;
     }
     
-    /* Gallery Styles */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      padding: 20px;
+    header.scrolled .glass-effect {
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.15), 0 15px 15px -5px rgba(0, 0, 0, 0.08);
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      min-width: 0;
+      flex: 1;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
+    
+    .logo-image {
+      width: 2.25rem;
+      height: 2.25rem;
+      flex-shrink: 0;
+      padding: 0.25rem;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    
+    .logo-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    
+    .brand-name {
+      font-family: 'Roboto', sans-serif;
+      color: #3d2b1f;
+      font-size: 0.875rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 0;
+      line-height: 1.2;
+    }
+    
+    .brand-tagline {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.5625rem;
+      color: #dc2626;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      padding: 10rem 2rem 4rem;
+      text-align: center;
       position: relative;
       z-index: 1;
     }
-
-    .spot-card {
-      background: white;
-      border-radius: 15px;
+    
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      color: #ffffff;
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    }
+    
+    .hero-subtitle {
+      color: #f5f5dc;
+      font-size: 1.125rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      max-width: 600px;
+      margin: 0 auto;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    .hero-divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+      margin: 2rem auto 0;
+    }
+    
+    /* Gallery Section */
+    .gallery-section {
+      position: relative;
+      z-index: 1;
+      padding: 3rem 2rem 6rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, rgba(245, 245, 220, 0.05) 0%, rgba(245, 245, 220, 0.08) 100%);
+      backdrop-filter: blur(5px);
+      border-radius: 2rem;
+    }
+    
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    
+    /* Photo Card */
+    .photo-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      cursor: pointer;
     }
-
-    .spot-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    
+    .photo-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(251, 191, 36, 0.3);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                  0 0 40px rgba(251, 191, 36, 0.1);
     }
-
-    .image-container {
+    
+    .image-wrapper {
       width: 100%;
-      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      padding-top: 66.67%;
       position: relative;
       overflow: hidden;
-      background: #f0f0f0;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     }
-
-    .spot-image {
+    
+    .photo-image {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: brightness(0.95);
     }
-
-    .spot-card:hover .spot-image {
-      transform: scale(1.1);
+    
+    .photo-card:hover .photo-image {
+      transform: scale(1.08);
+      filter: brightness(1.05);
     }
-
-    .spot-name {
-      font-family: 'Roboto', sans-serif;
-      padding: 20px;
-      text-align: center;
-      font-size: 1.1em;
-      font-weight: 900;
-      color: #333;
-      background: linear-gradient(to right, #dc2626, #991b1b);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 0.3px;
-    }
-
-    .number-badge {
+    
+    /* Number Badge */
+    .spot-number {
       position: absolute;
-      top: 15px;
-      left: 15px;
-      background: rgba(220, 38, 38, 0.9);
-      color: white;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      color: #fbbf24;
       width: 40px;
       height: 40px;
-      border-radius: 50%;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      font-size: 1.2em;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      font-weight: 600;
+      font-size: 1rem;
+      border: 1px solid rgba(251, 191, 36, 0.2);
       z-index: 10;
+      transition: all 0.3s ease;
     }
     
-    /* Title Section */
-    .title-section {
+    .photo-card:hover .spot-number {
+      background: rgba(251, 191, 36, 0.9);
+      color: #1a1a1a;
+      transform: scale(1.1);
+      border-color: transparent;
+    }
+    
+    /* Card Info */
+    .card-info {
+      padding: 1.5rem;
+      position: relative;
+    }
+    
+    .spot-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      transition: color 0.3s ease;
+    }
+    
+    .photo-card:hover .spot-title {
+      color: #fbbf24;
+    }
+    
+    /* Overlay Effect */
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    .photo-card:hover .card-overlay {
+      opacity: 1;
+    }
+    
+    /* Footer */
+    .footer-section {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 2rem;
       text-align: center;
-      padding: 2rem 1.5rem;
+      background: linear-gradient(180deg, rgba(153, 27, 27, 0) 0%, rgba(61, 43, 31, 0.6) 100%);
+      backdrop-filter: blur(10px);
+    }
+    
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
       position: relative;
       z-index: 1;
     }
     
-    .main-title {
-      font-family: 'Roboto', sans-serif;
-      color: white;
-      font-size: 2.5em;
-      font-weight: 900;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      letter-spacing: 0.5px;
+    .footer-text {
+      font-family: 'Playfair Display', serif;
+      color: #f5f5dc;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      font-style: italic;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      opacity: 0.9;
     }
     
-    .subtitle {
-      font-family: 'Roboto', sans-serif;
-      color: rgba(255,255,255,0.95);
-      font-size: 1.1em;
-      font-weight: 400;
-      letter-spacing: 0.3px;
+    .footer-divider {
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+      margin: 2rem auto 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(251, 191, 36, 0.4);
     }
-
+    
+    .footer-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L0 30l30 30 30-30L30 0z' fill='%23fbbf24' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      background-size: 60px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    
+    /* Responsive Design */
     @media (max-width: 768px) {
-      html {
-        font-size: 14px;
+      header {
+        padding: 0.75rem 1rem;
       }
       
-      .main-title {
-        font-size: 1.8em;
+      header.scrolled {
+        padding: 0.5rem 1rem;
       }
       
-      .subtitle {
-        font-size: 1em;
+      .logo-image {
+        width: 2rem;
+        height: 2rem;
       }
       
-      .gallery {
+      .brand-name {
+        font-size: 0.8rem;
+      }
+      
+      .brand-tagline {
+        font-size: 0.5rem;
+      }
+      
+      .hero-section {
+        padding: 8rem 1.5rem 3rem;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+      
+      .gallery-section {
+        padding: 2rem 1.5rem 4rem;
+      }
+      
+      .gallery-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 1.5rem;
       }
       
-      .image-container {
-        padding-top: 56.25%;
+      .spot-number {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
+      
+      .spot-title {
+        font-size: 1.125rem;
       }
     }
     
     @media (max-width: 480px) {
-      html {
-        font-size: 13px;
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 0.9rem;
+      }
+      
+      .card-info {
+        padding: 1.25rem;
       }
     }
     
+    /* Custom Scrollbar */
     ::-webkit-scrollbar { 
-      width: 4px; 
+      width: 8px; 
     }
     
     ::-webkit-scrollbar-track { 
-      background: #991b1b; 
+      background: linear-gradient(180deg, #991b1b 0%, #3d2b1f 100%);
     }
     
     ::-webkit-scrollbar-thumb { 
-      background: #fbbf24;
+      background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
       border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #fbbf24;
     }
   </style>
 </head>
 <body>
   <div class="mobile-container">
     
-    <!-- HEADER - Professional Glass Effect -->
-    <header style="position: fixed; top: 0; left: 0; width: 100%; z-index: 50; padding: 0.75rem 1rem;">
-      <div class="glass-effect" style="display: flex; align-items: center; gap: 0.875rem; color: #3d2b1f; padding: 0.75rem 1.25rem; border-radius: 0.5rem; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); max-width: 100%;">
-        <div style="display: flex; align-items: center; gap: 0.875rem; min-width: 0; flex: 1;">
-          <div style="width: 2.25rem; height: 2.25rem; flex-shrink: 0; padding: 0.25rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
-            <img 
-              src="images/logo-jodipan.png" 
-              alt="Logo Kampung Jodipan" 
-              style="width: 100%; height: 100%; object-fit: contain;"
-            />
-          </div>
-          <div style="display: flex; flex-direction: column; min-width: 0;">
-            <h1 style="color: #3d2b1f; font-size: 0.875rem; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'Roboto', sans-serif; margin: 0;">Jodipan</h1>
-            <span style="font-size: 0.5625rem; color: #dc2626; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'Roboto', sans-serif;">Kampung Warna Warni</span>
+    <!-- Header -->
+    <header id="mainHeader">
+      <div class="glass-effect">
+        <div class="header-content">
+          <div class="logo-container">
+            <div class="logo-image">
+              <img src="images/logo-jodipan.png" alt="Jodipan Logo"/>
+            </div>
+            <div class="brand-text">
+              <h1 class="brand-name">Jodipan</h1>
+              <span class="brand-tagline">Kampung Warna Warni</span>
+            </div>
           </div>
         </div>
       </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main style="position: relative; width: 100%; min-height: 100vh; padding-top: 5rem;">
+    <!-- Main Content -->
+    <main>
       
-      <!-- Title Section -->
-      <section class="title-section">
-        <h2 class="main-title">Preview Photo Spots of Kampung Warna Warni Jodipan</h2>
-        <p class="subtitle">Discover 10 Best Photo Spots in Jodipan Tourism Village, Malang</p>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <h2 class="hero-title">Photo Gallery</h2>
+        <p class="hero-subtitle">Discover the vibrant colors and captivating moments of Kampung Warna Warni Jodipan, Malang</p>
+        <div class="hero-divider"></div>
       </section>
       
       <!-- Gallery Section -->
-      <section class="gallery">
-        
-        <!-- Spot 1 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">1</div>
-            <img src="images/spot1.jpg" alt="Kampung Warna Warni" class="spot-image">
+      <section class="gallery-section">
+        <div class="gallery-grid">
+          
+          <!-- Spot 1 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">1</div>
+              <img src="images/spot1.jpg" alt="Main Gate" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Main Gate of Jodipan Village</h3>
+            </div>
           </div>
-          <div class="spot-name">Sang Pamong</div>
-        </div>
 
-        <!-- Spot 2 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">2</div>
-            <img src="images/spot2.jpg" alt="Colorful Houses" class="spot-image">
+          <!-- Spot 2 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">2</div>
+              <img src="images/spot2.jpg" alt="Colorful Houses" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Rainbow Colorful Houses Area</h3>
+            </div>
           </div>
-          <div class="spot-name">Harmoni Manusia & Alam</div>
-        </div>
 
-        <!-- Spot 3 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">3</div>
-            <img src="images/spot3.jpg" alt="Colorful Bridge" class="spot-image">
+          <!-- Spot 3 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">3</div>
+              <img src="images/spot3.jpg" alt="Colorful Bridge" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Jodipan Colorful Bridge</h3>
+            </div>
           </div>
-          <div class="spot-name">Topeng Bapang</div>
-        </div>
 
-        <!-- Spot 4 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">4</div>
-            <img src="images/spot4.jpg" alt="3D Mural" class="spot-image">
+          <!-- Spot 4 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">4</div>
+              <img src="images/spot4.jpg" alt="3D Mural" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">3D Koi Fish Mural Spot</h3>
+            </div>
           </div>
-          <div class="spot-name">Topeng Kehidupan</div>
-        </div>
 
-        <!-- Spot 5 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">5</div>
-            <img src="images/spot5.jpg" alt="Rainbow Stairs" class="spot-image">
+          <!-- Spot 5 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">5</div>
+              <img src="images/spot5.jpg" alt="Rainbow Stairs" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Instagram Rainbow Stairs</h3>
+            </div>
           </div>
-          <div class="spot-name">Bunglon</div>
-        </div>
 
-        <!-- Spot 6 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">6</div>
-            <img src="images/spot6.jpg" alt="Colorful Alley" class="spot-image">
+          <!-- Spot 6 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">6</div>
+              <img src="images/spot6.jpg" alt="Colorful Alley" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Colorful Village Alley</h3>
+            </div>
           </div>
-          <div class="spot-name">Mural Petan</div>
-        </div>
 
-        <!-- Spot 7 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">7</div>
-            <img src="images/spot7.jpg" alt="Flower Garden" class="spot-image">
+          <!-- Spot 7 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">7</div>
+              <img src="images/spot7.jpg" alt="Flower Garden" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Jodipan Flower Garden</h3>
+            </div>
           </div>
-          <div class="spot-name">Wani Ngaji - Ngaji</div>
-        </div>
 
-        <!-- Spot 8 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">8</div>
-            <img src="images/spot8.jpg" alt="Selfie Spot" class="spot-image">
+          <!-- Spot 8 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">8</div>
+              <img src="images/spot8.jpg" alt="Selfie Spot" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Angel Wings Selfie Spot</h3>
+            </div>
           </div>
-          <div class="spot-name">Kepala Singa</div>
-        </div>
 
-        <!-- Spot 9 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">9</div>
-            <img src="images/spot9.jpg" alt="River View" class="spot-image">
+          <!-- Spot 9 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">9</div>
+              <img src="images/spot9.jpg" alt="River View" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Brantas River View</h3>
+            </div>
           </div>
-          <div class="spot-name">Jembatan Kaca</div>
-        </div>
 
-        <!-- Spot 10 -->
-        <div class="spot-card">
-          <div class="image-container">
-            <div class="number-badge">10</div>
-            <img src="images/spot10.jpg" alt="Colorful Umbrellas" class="spot-image">
+          <!-- Spot 10 -->
+          <div class="photo-card">
+            <div class="image-wrapper">
+              <div class="card-overlay"></div>
+              <div class="spot-number">10</div>
+              <img src="images/spot10.jpg" alt="Colorful Umbrellas" class="photo-image">
+            </div>
+            <div class="card-info">
+              <h3 class="spot-title">Colorful Umbrella Area</h3>
+            </div>
           </div>
-          <div class="spot-name">Lorong Bunga</div>
+          
         </div>
-        
       </section>
+      
+      <!-- Footer -->
+      <section class="footer-section">
+        <div class="footer-content">
+          <p class="footer-text">Experience the vibrant colors and warm hospitality of Jodipan</p>
+          <div class="footer-divider"></div>
+        </div>
+      </section>
+      
     </main>
     
   </div>
+  
+  <script>
+    // Dynamic Header on Scroll
+    const header = document.getElementById('mainHeader');
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // Smooth scroll reveal animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.photo-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+  
 </body>
 </html>
